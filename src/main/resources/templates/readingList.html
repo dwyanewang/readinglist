@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" data-th-href="@{/style.css}">
+</head>
+<body>
+    <h2>Your Reading List</h2>
+    <div data-th-unless="${#lists.isEmpty(books)}">
+        <dl data-th-each="book:${books}">
+            <dt class="bookHeadline">
+                <span data-th-text="${book.title}">Title</span> by
+                <span data-th-text="${book.author}">Author</span>
+                (ISBN:<span data-th-text="${book.isbn}" >ISBN</span>)
+            </dt>
+            <dd class="bookDescription">
+                <span data-th-if="${book.description}"
+                      data-th-text="${book.description}">Description</span>
+                <span data-th-if="${book.description eq null}">No description available</span>
+            </dd>
+        </dl>
+    </div>
+    <div data-th-if="${#lists.isEmpty(books)}">
+        <p>You have no books in your book list</p>
+    </div>
+    <hr>
+    <h3>Add a book</h3>
+    <form method="post">
+        <label>Title:
+            <input type="text" name="title" size="50">
+        </label>
+        <br>
+        <label>Author:
+            <input type="text" name="author" size="50">
+        </label>
+        <br>
+        <label>ISBN:
+            <input type="text" name="isbn" size="50">
+        </label>
+        <br>
+        <label>
+            <textarea name="description" cols="80" rows="5"></textarea>
+        </label>
+        <br>
+        <button type="submit">提交</button>
+    </form>
+</body>
+</html>
